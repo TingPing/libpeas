@@ -143,6 +143,7 @@ enable_glade_catalog = enable_glade_catalog == 'true'
 enable_python2 = enable_python2 == 'true'
 enable_python3 = enable_python3 == 'true'
 
+lua_built = false # Set in subdir if built
 
 gnome = import('gnome')
 pkg = import('pkgconfig')

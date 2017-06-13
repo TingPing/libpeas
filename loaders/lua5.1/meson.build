@@ -9,7 +9,6 @@ elif enable_lua == 'luajit'
   lua_dep = dependency('luajit', version: '>= 2.0')
 endif
 
-lua_built = false
 if lua_dep.found()
   lua_built = true
   subdir('resources')
