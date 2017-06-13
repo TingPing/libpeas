@@ -28,7 +28,7 @@ foreach test_name: test_names
   test(test_name, test_exec)
 endforeach
 
-if enable_lua
+if lua_built
   extension_lua = executable('extension-lua',
     'extension-lua.c',
     dependencies: test_deps + [lua_dep],

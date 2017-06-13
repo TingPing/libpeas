@@ -18,6 +18,12 @@ else
   peas_interface_age = peas_version_micro
 endif
 
+add_project_arguments([
+  '-DLGI_MAJOR_VERSION=@0@'.format(peas_version_major),
+  '-DLGI_MINOR_VERSION=@0@'.format(peas_version_minor),
+  '-DLGI_MICRO_VERSION=@0@'.format(peas_version_micro),
+], language: 'c')
+
 # maintaining compatibility with the previous libtool versioning
 # current = minor * 100 + micro - interface
 # revision = interface
@@ -28,6 +34,7 @@ libversion = '@0@.@1@.@2@'.format(soversion, current, revision)
 
 girdir = join_paths(get_option('datadir'), 'gir-1.0')
 typelibdir = join_paths(get_option('libdir'), 'girepository-1.0')
+peasloaderdir = join_paths(get_option('libdir'), 'libpeas-1.0/loaders')
 
 conf = configuration_data()
 conf.set_quoted('G_LOG_DOMAIN', 'libpeas')
@@ -127,13 +134,12 @@ if enable_glade_catalog != 'false'
   endif
 endif
 
-enable_lua = get_option('enable_lua5_1')
+enable_lua = get_option('enable_lua')
 enable_python2 = get_option('enable_python2')
 enable_python3 = get_option('enable_python3')
 
 enable_gtk = enable_gtk == 'true'
 enable_glade_catalog = enable_glade_catalog == 'true'
-enable_lua = enable_lua == 'true'
 enable_python2 = enable_python2 == 'true'
 enable_python3 = enable_python3 == 'true'
 
@@ -143,7 +149,9 @@ pkg = import('pkgconfig')
 
 subdir('libpeas')
 subdir('libpeas-gtk')
-#subdir('loaders/lua5.1')
+if enable_lua != 'false'
+  subdir('loaders/lua5.1')
+endif
 #subdir('loaders/python')
 #subdir('loaders/python3')
 subdir('peas-demo')
