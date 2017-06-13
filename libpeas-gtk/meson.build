@@ -55,14 +55,13 @@ if get_option('with_introspection')
     symbol_prefix: 'peas_gtk',
     identifier_prefix: 'PeasGtk',
     link_with: libpeas_gtk,
-    includes: [ 'Peas-1.0', 'Gtk-3.0'],
+    includes: [ 'Gtk-3.0', libpeas_gir[0] ],
     install: true,
     install_dir_gir: girdir,
     install_dir_typelib: typelibdir,
     extra_args: [
       '--warn-all',
-      '--c-include=peas-gtk.h',
-      '--include-uninstalled=@0@/libpeas/Peas-1.0.gir'.format(meson.build_root()),
+      '--c-include=peas-gtk.h'
     ],
   )
 endif

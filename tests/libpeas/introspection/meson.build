@@ -40,11 +40,10 @@ if get_option('with_introspection')
     symbol_prefix: 'introspection',
     identifier_prefix: 'Introspection',
     link_with: libintrospection,
-    includes: [ 'Peas-1.0' ],
+    includes: [ libpeas_gir[0] ],
     install: false,
     extra_args: [
-      '--warn-all',
-      '--include-uninstalled=@0@/libpeas/Peas-1.0.gir'.format(meson.build_root()),
+      '--warn-all'
     ],
   )
 
